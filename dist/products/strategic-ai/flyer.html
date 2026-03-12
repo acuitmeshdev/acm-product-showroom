@@ -1,0 +1,1903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Strategic AI - Strategic Foresight Powered by AI Agents</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #08111f;
+      --slate: #3a4a5f;
+      --muted: #64748b;
+      --paper: #f7f5ef;
+      --panel: rgba(255, 255, 255, 0.78);
+      --panel-strong: #ffffff;
+      --line: rgba(8, 17, 31, 0.1);
+      --teal: #0f766e;
+      --teal-soft: #dff5f2;
+      --gold: #d97706;
+      --gold-soft: #fff1d6;
+      --sky: #d9ebff;
+      --rose: #ffe4e6;
+      --shadow: 0 18px 45px rgba(8, 17, 31, 0.12);
+      --radius-lg: 28px;
+      --radius-md: 18px;
+      --radius-sm: 12px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(15, 118, 110, 0.13), transparent 24%),
+        radial-gradient(circle at 85% 10%, rgba(217, 119, 6, 0.14), transparent 22%),
+        linear-gradient(180deg, #fbfaf6 0%, #f5f7fb 100%);
+      color: var(--ink);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #eef2f7; }
+    ::-webkit-scrollbar-thumb { background: rgba(8, 17, 31, 0.18); border-radius: 999px; }
+
+    .shell { position: relative; }
+    .shape {
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(14px);
+      opacity: 0.4;
+      pointer-events: none;
+    }
+    .shape.one { top: 120px; left: -70px; width: 220px; height: 220px; background: var(--teal-soft); }
+    .shape.two { top: 620px; right: -80px; width: 260px; height: 260px; background: var(--gold-soft); }
+    .shape.three { bottom: 140px; left: 12%; width: 180px; height: 180px; background: var(--sky); }
+
+    .container { width: min(1180px, calc(100% - 2rem)); margin: 0 auto; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid rgba(15, 118, 110, 0.18);
+      background: rgba(255, 255, 255, 0.72);
+      color: var(--teal);
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow .pulse {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.45);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.45); }
+      70% { box-shadow: 0 0 0 10px rgba(217, 119, 6, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(217, 119, 6, 0); }
+    }
+
+    .section { padding: 5.5rem 0; }
+    .section-head { max-width: 700px; margin-bottom: 2.5rem; }
+    .section-head h2 {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(2rem, 4vw, 3.3rem);
+      line-height: 1.08;
+      margin: 0.85rem 0 0.9rem;
+      letter-spacing: -0.04em;
+    }
+    .section-head h2 span { color: var(--teal); }
+    .section-head p { color: var(--slate); font-size: 1.05rem; }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(16px);
+      background: rgba(247, 245, 239, 0.74);
+      border-bottom: 1px solid rgba(8, 17, 31, 0.08);
+    }
+
+    .nav-inner {
+      width: min(1180px, calc(100% - 2rem));
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 74px;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-family: 'Sora', sans-serif;
+      font-size: 0.98rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--teal) 0%, #115e59 100%);
+      color: #fff;
+      box-shadow: 0 10px 22px rgba(15, 118, 110, 0.28);
+      font-size: 1rem;
+      font-weight: 800;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.4rem;
+      color: var(--slate);
+      font-size: 0.93rem;
+      font-weight: 600;
+    }
+
+    .nav-links a:hover { color: var(--ink); }
+
+    .nav-cta,
+    .btn-primary,
+    .btn-secondary,
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      border-radius: 999px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .nav-cta,
+    .btn-primary {
+      background: var(--ink);
+      color: #fff;
+      box-shadow: 0 12px 30px rgba(8, 17, 31, 0.18);
+    }
+
+    .nav-cta { padding: 0.72rem 1.1rem; font-size: 0.88rem; font-weight: 700; }
+    .btn-primary { padding: 0.95rem 1.45rem; font-size: 0.95rem; font-weight: 700; }
+
+    .btn-secondary {
+      padding: 0.95rem 1.45rem;
+      border: 1px solid rgba(8, 17, 31, 0.1);
+      background: rgba(255, 255, 255, 0.64);
+      color: var(--ink);
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .btn-ghost {
+      padding: 0.82rem 1.2rem;
+      border: 1px solid rgba(8, 17, 31, 0.08);
+      background: rgba(255, 255, 255, 0.76);
+      color: var(--slate);
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .nav-cta:hover,
+    .btn-primary:hover,
+    .btn-secondary:hover,
+    .btn-ghost:hover {
+      transform: translateY(-1px);
+    }
+
+    .nav-toggle {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(8, 17, 31, 0.08);
+      background: rgba(255, 255, 255, 0.75);
+      border-radius: 14px;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .nav-toggle span {
+      width: 18px;
+      height: 2px;
+      background: var(--ink);
+      border-radius: 999px;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .nav-toggle.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+    .nav-mobile {
+      display: none;
+      width: min(1180px, calc(100% - 2rem));
+      margin: 0 auto 1rem;
+      padding: 1rem;
+      border: 1px solid rgba(8, 17, 31, 0.08);
+      background: rgba(255, 255, 255, 0.92);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .nav-mobile.open { display: grid; gap: 0.8rem; }
+
+    .hero { padding: 4.4rem 0 4rem; }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 2.4rem;
+      align-items: center;
+    }
+
+    .hero-copy h1 {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(2.8rem, 6vw, 5.1rem);
+      line-height: 0.96;
+      letter-spacing: -0.06em;
+      margin: 1rem 0 1.2rem;
+      max-width: 11ch;
+    }
+
+    .hero-copy h1 span { color: var(--teal); }
+
+    .hero-copy p {
+      max-width: 60ch;
+      color: var(--slate);
+      font-size: 1.08rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      margin: 2rem 0 2.1rem;
+    }
+
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.9rem;
+      max-width: 640px;
+    }
+
+    .metric {
+      padding: 1rem 1rem 1.05rem;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.62);
+      border: 1px solid rgba(8, 17, 31, 0.08);
+    }
+
+    .metric strong {
+      display: block;
+      font-family: 'Sora', sans-serif;
+      font-size: 1.55rem;
+      line-height: 1;
+      margin-bottom: 0.35rem;
+    }
+
+    .metric span { color: var(--muted); font-size: 0.84rem; }
+
+    .hero-panel {
+      position: relative;
+      padding: 1.35rem;
+      border-radius: 30px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0.74) 100%);
+      border: 1px solid rgba(8, 17, 31, 0.08);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .hero-panel::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(15, 118, 110, 0.08), transparent 38%, rgba(217, 119, 6, 0.08));
+      pointer-events: none;
+    }
+
+    .workflow-head {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .workflow-head h3 { font-family: 'Sora', sans-serif; font-size: 1.05rem; }
+
+    .live-pill {
+      padding: 0.3rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(15, 118, 110, 0.12);
+      color: var(--teal);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .question-card,
+    .agent-stream,
+    .scenario-mini-grid,
+    .quality-bar {
+      position: relative;
+      z-index: 1;
+    }
+
+    .question-card {
+      padding: 1rem 1.05rem;
+      border-radius: 18px;
+      background: rgba(8, 17, 31, 0.94);
+      color: #f8fafc;
+      margin-bottom: 1rem;
+    }
+
+    .question-card small {
+      display: inline-flex;
+      margin-bottom: 0.45rem;
+      color: rgba(255, 255, 255, 0.65);
+      font-size: 0.73rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .question-card p { font-size: 0.95rem; }
+
+    .agent-stream {
+      display: grid;
+      gap: 0.7rem;
+      margin-bottom: 1rem;
+    }
+
+    .agent-row {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.8rem 0.9rem;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.74);
+      border: 1px solid rgba(8, 17, 31, 0.08);
+    }
+
+    .agent-step {
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      background: var(--teal-soft);
+      color: var(--teal);
+      display: grid;
+      place-items: center;
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
+    .agent-copy strong { display: block; font-size: 0.9rem; }
+    .agent-copy span { font-size: 0.78rem; color: var(--muted); }
+
+    .status-pill {
+      padding: 0.26rem 0.58rem;
+      border-radius: 999px;
+      font-size: 0.71rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .status-pill.done { background: rgba(15, 118, 110, 0.12); color: var(--teal); }
+    .status-pill.live { background: rgba(217, 119, 6, 0.14); color: var(--gold); }
+
+    .scenario-mini-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.7rem;
+      margin-bottom: 1rem;
+    }
+
+    .scenario-tile {
+      padding: 0.85rem;
+      border-radius: 18px;
+      border: 1px solid rgba(8, 17, 31, 0.08);
+      background: rgba(255, 255, 255, 0.84);
+    }
+
+    .scenario-tile strong { display: block; font-size: 0.85rem; margin-bottom: 0.2rem; }
+    .scenario-tile span { color: var(--muted); font-size: 0.76rem; }
+
+    .quality-bar {
+      padding: 0.95rem 1rem;
+      border-radius: 18px;
+      background: linear-gradient(90deg, rgba(15, 118, 110, 0.12), rgba(217, 119, 6, 0.08));
+      border: 1px solid rgba(8, 17, 31, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      font-size: 0.82rem;
+      color: var(--slate);
+    }
+
+    .stat-band {
+      padding: 1.2rem 0;
+    }
+
+    .stat-band-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .stat-band-card {
+      padding: 1.3rem;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(8, 17, 31, 0.08);
+      text-align: center;
+    }
+
+    .stat-band-card strong {
+      display: block;
+      font-family: 'Sora', sans-serif;
+      font-size: 2rem;
+      line-height: 1;
+      margin-bottom: 0.35rem;
+      color: var(--ink);
+    }
+
+    .stat-band-card span { color: var(--muted); font-size: 0.82rem; }
+
+    .feature-grid,
+    .trust-grid,
+    .use-case-grid,
+    .pricing-grid {
+      display: grid;
+      gap: 1.15rem;
+    }
+
+    .feature-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .trust-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .use-case-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .pricing-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+    .card {
+      padding: 1.4rem;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid rgba(8, 17, 31, 0.08);
+      box-shadow: 0 10px 28px rgba(8, 17, 31, 0.06);
+    }
+
+    .feature-card {
+      display: flex;
+      flex-direction: column;
+      gap: 0.95rem;
+      min-height: 100%;
+    }
+
+    .feature-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: var(--teal-soft);
+      color: var(--teal);
+      font-family: 'Sora', sans-serif;
+      font-weight: 800;
+    }
+
+    .feature-card h3,
+    .use-case-card h3,
+    .price-card h3,
+    .trust-card h4,
+    .detail-panel h3 {
+      font-family: 'Sora', sans-serif;
+      font-size: 1rem;
+      letter-spacing: -0.03em;
+    }
+
+    .feature-card p,
+    .use-case-card p,
+    .price-card p,
+    .trust-card p,
+    .detail-panel p,
+    .detail-panel li,
+    .spec-list li,
+    .timeline-card p,
+    .quote {
+      color: var(--slate);
+      font-size: 0.92rem;
+    }
+
+    .spec-list {
+      list-style: none;
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .spec-list li {
+      display: flex;
+      gap: 0.6rem;
+      align-items: flex-start;
+    }
+
+    .spec-list li::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--gold);
+      margin-top: 0.42rem;
+      flex: 0 0 auto;
+    }
+
+    .pipeline-wrap {
+      display: grid;
+      grid-template-columns: 0.92fr 1.08fr;
+      gap: 1.2rem;
+      align-items: start;
+    }
+
+    .pipeline-list {
+      display: grid;
+      gap: 0.65rem;
+    }
+
+    .pipeline-btn {
+      text-align: left;
+      width: 100%;
+      border: 1px solid rgba(8, 17, 31, 0.08);
+      background: rgba(255, 255, 255, 0.72);
+      border-radius: 18px;
+      padding: 0.95rem 1rem;
+      cursor: pointer;
+      transition: border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
+    }
+
+    .pipeline-btn:hover,
+    .pipeline-btn.active {
+      border-color: rgba(15, 118, 110, 0.32);
+      background: linear-gradient(180deg, rgba(15, 118, 110, 0.08), rgba(255, 255, 255, 0.92));
+      transform: translateY(-1px);
+    }
+
+    .pipeline-btn strong {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+      font-family: 'Sora', sans-serif;
+      font-size: 0.92rem;
+      margin-bottom: 0.15rem;
+    }
+
+    .pipeline-btn span { color: var(--muted); font-size: 0.8rem; }
+
+    .pipeline-tag {
+      padding: 0.22rem 0.48rem;
+      border-radius: 999px;
+      background: rgba(217, 119, 6, 0.12);
+      color: var(--gold);
+      font-size: 0.67rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .detail-panel {
+      min-height: 100%;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0.78));
+    }
+
+    .detail-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .detail-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.7rem;
+      margin: 1rem 0 1.2rem;
+    }
+
+    .detail-metric {
+      padding: 0.85rem;
+      border-radius: 16px;
+      background: rgba(247, 245, 239, 0.95);
+      border: 1px solid rgba(8, 17, 31, 0.06);
+    }
+
+    .detail-metric strong { display: block; font-size: 1.2rem; font-family: 'Sora', sans-serif; }
+    .detail-metric span { color: var(--muted); font-size: 0.75rem; }
+
+    .matrix {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.9rem;
+    }
+
+    .matrix-card {
+      padding: 1rem;
+      border-radius: 18px;
+      border: 1px solid rgba(8, 17, 31, 0.08);
+      background: rgba(255, 255, 255, 0.82);
+      min-height: 180px;
+    }
+
+    .matrix-card small,
+    .timeline-card small,
+    .price-badge,
+    .tag {
+      display: inline-flex;
+      padding: 0.28rem 0.55rem;
+      border-radius: 999px;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .matrix-card small { background: var(--teal-soft); color: var(--teal); margin-bottom: 0.55rem; }
+    .matrix-card h4 { font-family: 'Sora', sans-serif; margin-bottom: 0.45rem; }
+    .matrix-card p { font-size: 0.86rem; color: var(--slate); }
+
+    .mode-shell {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 1.2rem;
+      align-items: start;
+    }
+
+    .mode-list { display: grid; gap: 0.8rem; }
+
+    .mode-btn {
+      text-align: left;
+      width: 100%;
+      padding: 1rem 1rem 1.05rem;
+      border-radius: 20px;
+      border: 1px solid rgba(8, 17, 31, 0.08);
+      background: rgba(255, 255, 255, 0.75);
+      cursor: pointer;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .mode-btn.active,
+    .mode-btn:hover {
+      border-color: rgba(217, 119, 6, 0.28);
+      transform: translateY(-1px);
+    }
+
+    .mode-btn strong { display: block; font-family: 'Sora', sans-serif; margin-bottom: 0.25rem; }
+    .mode-btn span { color: var(--muted); font-size: 0.82rem; }
+
+    .timeline {
+      display: grid;
+      gap: 0.8rem;
+    }
+
+    .timeline-card {
+      padding: 1rem 1.05rem;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.84);
+      border: 1px solid rgba(8, 17, 31, 0.08);
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.9rem;
+      align-items: start;
+    }
+
+    .timeline-time {
+      width: 72px;
+      min-height: 72px;
+      border-radius: 22px;
+      display: grid;
+      place-items: center;
+      background: var(--ink);
+      color: #fff;
+      font-family: 'Sora', sans-serif;
+      font-size: 0.92rem;
+      line-height: 1.2;
+      text-align: center;
+    }
+
+    .tabs {
+      display: inline-flex;
+      gap: 0.35rem;
+      padding: 0.35rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(8, 17, 31, 0.08);
+      margin-bottom: 1.6rem;
+    }
+
+    .tab-btn {
+      border: 0;
+      background: transparent;
+      border-radius: 999px;
+      padding: 0.7rem 1rem;
+      color: var(--slate);
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .tab-btn.active { background: var(--ink); color: #fff; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 24px;
+      border: 1px solid rgba(8, 17, 31, 0.08);
+      background: rgba(255, 255, 255, 0.82);
+    }
+
+    .spec-table tr:not(:last-child) { border-bottom: 1px solid rgba(8, 17, 31, 0.08); }
+    .spec-table td { padding: 1rem 1.15rem; font-size: 0.92rem; }
+    .spec-table td:first-child { width: 38%; color: var(--muted); font-weight: 600; }
+
+    .price-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      min-height: 100%;
+    }
+
+    .price-card.featured {
+      background: linear-gradient(180deg, rgba(15, 118, 110, 0.08), rgba(255, 255, 255, 0.92));
+      border-color: rgba(15, 118, 110, 0.18);
+    }
+
+    .price-badge { background: rgba(15, 118, 110, 0.12); color: var(--teal); }
+    .tag { background: rgba(217, 119, 6, 0.12); color: var(--gold); }
+
+    .price-row {
+      display: flex;
+      align-items: flex-end;
+      gap: 0.45rem;
+      margin-top: 0.2rem;
+    }
+
+    .price {
+      font-family: 'Sora', sans-serif;
+      font-size: 2.3rem;
+      line-height: 1;
+      letter-spacing: -0.05em;
+    }
+
+    .quote-card {
+      padding: 1.8rem;
+      border-radius: 28px;
+      background: linear-gradient(135deg, rgba(255, 241, 214, 0.9), rgba(223, 245, 242, 0.72));
+      border: 1px solid rgba(8, 17, 31, 0.08);
+    }
+
+    .quote {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      margin-bottom: 1.1rem;
+    }
+
+    .quote strong { font-family: 'Sora', sans-serif; }
+
+    .cta-panel {
+      padding: 2rem;
+      border-radius: 34px;
+      background: linear-gradient(135deg, rgba(8, 17, 31, 0.96), rgba(15, 118, 110, 0.92));
+      color: #f8fafc;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 1.5rem;
+      align-items: center;
+      box-shadow: 0 24px 60px rgba(8, 17, 31, 0.2);
+    }
+
+    .cta-panel h2 {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.08;
+      letter-spacing: -0.05em;
+      margin-bottom: 0.8rem;
+    }
+
+    .cta-panel p { color: rgba(248, 250, 252, 0.76); max-width: 50ch; }
+
+    .cta-side {
+      padding: 1.2rem;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .cta-side ul {
+      list-style: none;
+      display: grid;
+      gap: 0.7rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .cta-side li {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 1.2rem;
+      align-items: start;
+    }
+
+    .contact-card,
+    .form-card {
+      padding: 1.5rem;
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(8, 17, 31, 0.08);
+      box-shadow: 0 12px 28px rgba(8, 17, 31, 0.06);
+    }
+
+    .contact-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+      padding: 0.9rem 0;
+      border-bottom: 1px solid rgba(8, 17, 31, 0.08);
+    }
+
+    .contact-detail:last-of-type { border-bottom: 0; }
+
+    .contact-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      background: var(--teal-soft);
+      color: var(--teal);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      flex: 0 0 auto;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.9rem;
+    }
+
+    label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--slate);
+      margin-bottom: 0.38rem;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      border-radius: 16px;
+      border: 1px solid rgba(8, 17, 31, 0.1);
+      background: rgba(247, 245, 239, 0.9);
+      padding: 0.85rem 0.95rem;
+      font: inherit;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: rgba(15, 118, 110, 0.4);
+      background: #fff;
+    }
+
+    textarea { min-height: 132px; resize: vertical; }
+
+    .form-success {
+      display: none;
+      padding: 1rem;
+      border-radius: 18px;
+      border: 1px solid rgba(15, 118, 110, 0.2);
+      background: rgba(223, 245, 242, 0.8);
+      color: var(--teal);
+      margin-bottom: 1rem;
+    }
+
+    .form-success.visible { display: block; }
+
+    footer {
+      padding: 2.4rem 0 3rem;
+      color: var(--muted);
+      font-size: 0.84rem;
+    }
+
+    .footer-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding-top: 1.4rem;
+      border-top: 1px solid rgba(8, 17, 31, 0.08);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1024px) {
+      .hero-grid,
+      .pipeline-wrap,
+      .mode-shell,
+      .cta-panel,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .feature-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .trust-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .pricing-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 760px) {
+      .nav-links > a:not(.nav-cta),
+      .nav-links .inline-link { display: none; }
+      .nav-toggle { display: inline-flex; }
+      .nav-cta { display: none; }
+
+      .hero-copy h1 { max-width: none; }
+      .hero-metrics,
+      .stat-band-grid,
+      .feature-grid,
+      .use-case-grid,
+      .trust-grid,
+      .scenario-mini-grid,
+      .detail-metrics,
+      .matrix,
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .tabs { display: grid; width: 100%; }
+      .tab-btn { width: 100%; }
+      .footer-row { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="shape one"></div>
+    <div class="shape two"></div>
+    <div class="shape three"></div>
+
+    <nav class="nav">
+      <div class="nav-inner">
+        <a class="brand" href="#top">
+          <span class="brand-mark">SA</span>
+          <span>Strategic AI</span>
+        </a>
+        <div class="nav-links">
+          <a class="inline-link" href="#features">Features</a>
+          <a class="inline-link" href="#pipeline">Pipeline</a>
+          <a class="inline-link" href="#use-cases">Use Cases</a>
+          <a class="inline-link" href="#pricing">Plans</a>
+          <a class="nav-cta" href="#contact">Request Demo</a>
+          <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </div>
+      <div class="nav-mobile" id="nav-mobile">
+        <a href="#features">Features</a>
+        <a href="#pipeline">Pipeline</a>
+        <a href="#use-cases">Use Cases</a>
+        <a href="#pricing">Plans</a>
+        <a class="btn-primary" href="#contact">Request Demo</a>
+      </div>
+    </nav>
+
+    <main id="top">
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy fade-up">
+            <div class="eyebrow"><span class="pulse"></span> AI-Powered Strategic Foresight</div>
+            <h1>From strategic questions to <span>actionable future scenarios</span>.</h1>
+            <p>
+              Strategic AI turns uncertainty into a clear decision surface. Twelve specialized AI agents scan signals,
+              map drivers, construct four plausible futures, and produce executive-ready strategic options in minutes.
+            </p>
+            <div class="hero-actions">
+              <a class="btn-primary" href="#contact">Book Enterprise Demo</a>
+              <a class="btn-secondary" href="#pipeline">Explore the 12-agent pipeline</a>
+            </div>
+            <div class="hero-metrics">
+              <div class="metric">
+                <strong>12</strong>
+                <span>specialized agents in sequence</span>
+              </div>
+              <div class="metric">
+                <strong>3-6 min</strong>
+                <span>for complete scenario generation</span>
+              </div>
+              <div class="metric">
+                <strong>4 futures</strong>
+                <span>validated scenarios per analysis</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-panel fade-up">
+            <div class="workflow-head">
+              <h3>Live workflow monitor</h3>
+              <span class="live-pill">Live run</span>
+            </div>
+
+            <div class="question-card">
+              <small>Active question</small>
+              <p>What are the possible futures of enterprise AI adoption in financial services by 2029?</p>
+            </div>
+
+            <div class="agent-stream">
+              <div class="agent-row">
+                <div class="agent-step">01</div>
+                <div class="agent-copy">
+                  <strong>Focal Question Refinement</strong>
+                  <span>Clarifies scope, time horizon, and decision context</span>
+                </div>
+                <span class="status-pill done">Done</span>
+              </div>
+              <div class="agent-row">
+                <div class="agent-step">04</div>
+                <div class="agent-copy">
+                  <strong>Trend Detection</strong>
+                  <span>Surfacing 7 major trends and 4 emerging issues</span>
+                </div>
+                <span class="status-pill done">Done</span>
+              </div>
+              <div class="agent-row">
+                <div class="agent-step">07</div>
+                <div class="agent-copy">
+                  <strong>Scenario Construction</strong>
+                  <span>Building 2x2 matrix from high-impact uncertainties</span>
+                </div>
+                <span class="status-pill live">Running</span>
+              </div>
+            </div>
+
+            <div class="scenario-mini-grid">
+              <div class="scenario-tile">
+                <strong>Regulated Intelligence</strong>
+                <span>High adoption, tight compliance frameworks</span>
+              </div>
+              <div class="scenario-tile">
+                <strong>Automation Divide</strong>
+                <span>Uneven adoption across incumbents and challengers</span>
+              </div>
+              <div class="scenario-tile">
+                <strong>Trusted Augmentation</strong>
+                <span>Human-centered AI with measurable governance</span>
+              </div>
+              <div class="scenario-tile">
+                <strong>Shadow Systems</strong>
+                <span>Rapid adoption outruns oversight capacity</span>
+              </div>
+            </div>
+
+            <div class="quality-bar">
+              <span>PDCR quality score in progress</span>
+              <strong>92 / 100 estimated completeness</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="stat-band">
+        <div class="container stat-band-grid">
+          <div class="stat-band-card fade-up">
+            <strong>95%+</strong>
+            <span>workflow success rate with smart retries</span>
+          </div>
+          <div class="stat-band-card fade-up">
+            <strong>20+</strong>
+            <span>cognitive biases detected and mitigated</span>
+          </div>
+          <div class="stat-band-card fade-up">
+            <strong>100+</strong>
+            <span>concurrent workflows supported</span>
+          </div>
+          <div class="stat-band-card fade-up">
+            <strong>&lt;100ms</strong>
+            <span>database query latency on PostgreSQL</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="features">
+        <div class="container">
+          <div class="section-head fade-up">
+            <div class="eyebrow"><span class="pulse"></span> Core Capabilities</div>
+            <h2>Enterprise foresight built as a <span>working system</span>, not a slide deck.</h2>
+            <p>
+              Strategic AI combines orchestration, grounded analysis, validation, and export-ready outputs into a single workflow.
+            </p>
+          </div>
+
+          <div class="feature-grid">
+            <article class="card feature-card fade-up">
+              <div class="feature-icon">12</div>
+              <h3>Multi-agent strategic pipeline</h3>
+              <p>Twelve purpose-built agents move from question refinement to scenario narratives, strategy options, and executive reporting.</p>
+              <ul class="spec-list">
+                <li>Signal detection and weak signal scanning</li>
+                <li>STEEPM and driving force analysis</li>
+                <li>Four divergent 2x2 scenarios with narratives</li>
+              </ul>
+            </article>
+
+            <article class="card feature-card fade-up">
+              <div class="feature-icon">RAG</div>
+              <h3>Document-grounded intelligence</h3>
+              <p>Upload internal reports, market research, and scanned documents to ground outputs with your own evidence base.</p>
+              <ul class="spec-list">
+                <li>PDF, Word, Markdown, and text ingestion</li>
+                <li>Semantic chunking with relevance retrieval</li>
+                <li>Optional OCR for scanned material</li>
+              </ul>
+            </article>
+
+            <article class="card feature-card fade-up">
+              <div class="feature-icon">QC</div>
+              <h3>Validation and bias control</h3>
+              <p>Every scenario is scored for plausibility, desirability, coherence, and relevance, with explicit bias detection built in.</p>
+              <ul class="spec-list">
+                <li>PDCR validation framework</li>
+                <li>20+ cognitive biases checked</li>
+                <li>Quality and actionability scoring</li>
+              </ul>
+            </article>
+
+            <article class="card feature-card fade-up">
+              <div class="feature-icon">RT</div>
+              <h3>Real-time workflow visibility</h3>
+              <p>Users can watch each agent run, inspect output quality, and follow the workflow instead of waiting for a single batch result.</p>
+              <ul class="spec-list">
+                <li>Live agent-by-agent monitoring</li>
+                <li>Token, latency, and cost metrics</li>
+                <li>Execution timing and traceability</li>
+              </ul>
+            </article>
+
+            <article class="card feature-card fade-up">
+              <div class="feature-icon">LLM</div>
+              <h3>Provider-flexible model routing</h3>
+              <p>Connect OpenAI, Azure OpenAI, OpenRouter, Ollama, or another OpenAI-compatible endpoint with per-agent model selection.</p>
+              <ul class="spec-list">
+                <li>Primary and fallback providers</li>
+                <li>Fast and thinking mode model sets</li>
+                <li>Cost-aware orchestration</li>
+              </ul>
+            </article>
+
+            <article class="card feature-card fade-up">
+              <div class="feature-icon">EXP</div>
+              <h3>Executive-ready outputs</h3>
+              <p>Strategic AI produces reports and data artifacts that can move directly into leadership review, planning workshops, or integration pipelines.</p>
+              <ul class="spec-list">
+                <li>Markdown, PDF, DOCX, and JSONC exports</li>
+                <li>Strategic options and action roadmaps</li>
+                <li>Shareable scenario summaries</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="pipeline">
+        <div class="container">
+          <div class="section-head fade-up">
+            <div class="eyebrow"><span class="pulse"></span> 12-Agent Workflow</div>
+            <h2>Inspect how each agent turns ambiguity into a <span>defensible strategy view</span>.</h2>
+            <p>Select a stage to see what the agent contributes, what it consumes, and what it outputs.</p>
+          </div>
+
+          <div class="pipeline-wrap">
+            <div class="pipeline-list fade-up" id="pipeline-list">
+              <button class="pipeline-btn active" type="button" data-agent="refinement">
+                <strong>Focal Question Refinement <span class="pipeline-tag">Agent 01</span></strong>
+                <span>Sharpens the strategic question, horizon, and constraints.</span>
+              </button>
+              <button class="pipeline-btn" type="button" data-agent="scan">
+                <strong>Intelligence Scanning <span class="pipeline-tag">Agent 02</span></strong>
+                <span>Collects signals, trends, and weak signals from public and private sources.</span>
+              </button>
+              <button class="pipeline-btn" type="button" data-agent="forces">
+                <strong>Driving Forces Mapping <span class="pipeline-tag">Agent 05</span></strong>
+                <span>Ranks high-uncertainty, high-impact forces for the scenario matrix.</span>
+              </button>
+              <button class="pipeline-btn" type="button" data-agent="scenarios">
+                <strong>Scenario Construction <span class="pipeline-tag">Agent 07</span></strong>
+                <span>Generates four divergent, plausible futures with named quadrants.</span>
+              </button>
+              <button class="pipeline-btn" type="button" data-agent="strategy">
+                <strong>Strategic Options <span class="pipeline-tag">Agent 09</span></strong>
+                <span>Produces robust, contingent, and shaping strategic responses.</span>
+              </button>
+              <button class="pipeline-btn" type="button" data-agent="reporting">
+                <strong>Executive Reporting <span class="pipeline-tag">Agent 12</span></strong>
+                <span>Packages outputs into decision-ready reports and export artifacts.</span>
+              </button>
+            </div>
+
+            <article class="card detail-panel fade-up">
+              <div class="detail-head">
+                <div>
+                  <span class="tag" id="agent-stage-tag">Agent 01</span>
+                  <h3 id="agent-title" style="margin-top:0.6rem;">Focal Question Refinement</h3>
+                </div>
+                <span class="price-badge" id="agent-output-type">Strategic framing</span>
+              </div>
+              <p id="agent-description">
+                The first agent turns an open-ended request into a decision-oriented brief with a time horizon,
+                a target domain, and explicit assumptions for the rest of the workflow.
+              </p>
+
+              <div class="detail-metrics">
+                <div class="detail-metric">
+                  <strong id="agent-metric-a">3</strong>
+                  <span id="agent-metric-a-label">decision constraints defined</span>
+                </div>
+                <div class="detail-metric">
+                  <strong id="agent-metric-b">10s</strong>
+                  <span id="agent-metric-b-label">average execution</span>
+                </div>
+                <div class="detail-metric">
+                  <strong id="agent-metric-c">1</strong>
+                  <span id="agent-metric-c-label">clarified focal question</span>
+                </div>
+              </div>
+
+              <ul class="spec-list" id="agent-bullets">
+                <li>Defines scope, time horizon, and decision audience.</li>
+                <li>Normalizes ambiguous language into a strategic question.</li>
+                <li>Prepares a clean handoff for downstream agents.</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-head fade-up">
+            <div class="eyebrow"><span class="pulse"></span> Scenario Design</div>
+            <h2>Outputs are built for comparison, discussion, and <span>decision pressure-testing</span>.</h2>
+            <p>Each workflow produces four futures that make uncertainty visible rather than abstract.</p>
+          </div>
+
+          <div class="matrix">
+            <article class="matrix-card fade-up">
+              <small>Scenario A</small>
+              <h4>Coordinated Leap</h4>
+              <p>Strong regulation and strong enterprise adoption produce rapid transformation with high trust and institutional confidence.</p>
+            </article>
+            <article class="matrix-card fade-up">
+              <small>Scenario B</small>
+              <h4>Fragmented Acceleration</h4>
+              <p>Adoption outruns governance, creating pockets of advantage and rising operational risk across sectors.</p>
+            </article>
+            <article class="matrix-card fade-up">
+              <small>Scenario C</small>
+              <h4>Cautious Reinvention</h4>
+              <p>Leadership teams move carefully, using AI augmentation where evidence, governance, and ROI are strongest.</p>
+            </article>
+            <article class="matrix-card fade-up">
+              <small>Scenario D</small>
+              <h4>Stalled Trust</h4>
+              <p>Public backlash, compliance friction, and uneven data quality delay transformation and reward operational resilience.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-head fade-up">
+            <div class="eyebrow"><span class="pulse"></span> Dual Modes</div>
+            <h2>Run a fast exploratory pass or a deeper <span>thinking-mode analysis</span>.</h2>
+            <p>Both modes use the same workflow foundation. The difference is depth, token budget, and divergence pressure.</p>
+          </div>
+
+          <div class="mode-shell">
+            <div class="mode-list fade-up">
+              <button class="mode-btn active" type="button" data-mode="fast">
+                <strong>Fast Mode</strong>
+                <span>Rapid 2-3 minute analysis for quick decision support and exploratory scans.</span>
+              </button>
+              <button class="mode-btn" type="button" data-mode="thinking">
+                <strong>Thinking Mode</strong>
+                <span>Deeper 4-6 minute reasoning path with stronger divergence and richer narratives.</span>
+              </button>
+            </div>
+
+            <div class="timeline fade-up" id="mode-timeline"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="use-cases">
+        <div class="container">
+          <div class="section-head fade-up">
+            <div class="eyebrow"><span class="pulse"></span> Use Cases</div>
+            <h2>Designed for teams making bets under uncertainty, from <span>strategy to market entry</span>.</h2>
+            <p>Strategic AI is structured for teams that need analysis they can use, not just admire.</p>
+          </div>
+
+          <div class="use-case-grid">
+            <article class="card use-case-card fade-up">
+              <span class="tag">Strategy teams</span>
+              <h3 style="margin:0.8rem 0 0.45rem;">Long-term strategic planning</h3>
+              <p>Explore 5-20 year futures, identify signals to monitor, and prepare strategic options that remain robust across scenarios.</p>
+            </article>
+            <article class="card use-case-card fade-up">
+              <span class="tag">Product leaders</span>
+              <h3 style="margin:0.8rem 0 0.45rem;">Market entry and positioning</h3>
+              <p>Combine market research analysis with scenario planning to pressure-test product launches and segmentation decisions.</p>
+            </article>
+            <article class="card use-case-card fade-up">
+              <span class="tag">Consultancies</span>
+              <h3 style="margin:0.8rem 0 0.45rem;">Client-ready foresight workflows</h3>
+              <p>Turn strategic foresight methods into repeatable, scalable delivery with export-ready reports and shared workflows.</p>
+            </article>
+            <article class="card use-case-card fade-up">
+              <span class="tag">Public sector</span>
+              <h3 style="margin:0.8rem 0 0.45rem;">Risk and resilience planning</h3>
+              <p>Model critical infrastructure, policy disruption, and early warning indicators to build scenario-based resilience plans.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="pricing">
+        <div class="container">
+          <div class="section-head fade-up">
+            <div class="eyebrow"><span class="pulse"></span> Plans and Specs</div>
+            <h2>Choose the operating model that fits your <span>team maturity and scale</span>.</h2>
+            <p>Start with a guided demo, then move into production workflows, document analysis, and enterprise deployment.</p>
+          </div>
+
+          <div class="tabs fade-up">
+            <button class="tab-btn active" type="button" data-tab="specs">Specifications</button>
+            <button class="tab-btn" type="button" data-tab="plans">Plans</button>
+          </div>
+
+          <div class="tab-panel active fade-up" id="tab-specs">
+            <table class="spec-table">
+              <tbody>
+                <tr><td>Primary workflow</td><td>12-agent strategic foresight pipeline with 4 validated scenarios</td></tr>
+                <tr><td>Additional module</td><td>Market research analysis with PESTEL, Porter's Five Forces, SWOT, TOWS</td></tr>
+                <tr><td>Execution modes</td><td>Fast mode and thinking mode with per-mode model selection</td></tr>
+                <tr><td>Document analysis</td><td>RAG with PDF, TXT, Markdown, Word, OCR-ready uploads</td></tr>
+                <tr><td>Traceability</td><td>Entity IDs across signals, trends, forces, scenarios, and strategy outputs</td></tr>
+                <tr><td>Validation</td><td>PDCR scoring, schema validation, bias detection, smart retry loops</td></tr>
+                <tr><td>Infrastructure</td><td>PostgreSQL, Redis, optional Qdrant, Docker, Kubernetes, CI/CD ready</td></tr>
+                <tr><td>Security</td><td>Basic auth, rate limiting, CORS middleware, enterprise deployment options</td></tr>
+                <tr><td>Observability</td><td>Execution traces, token usage, cost estimation, LangSmith integration</td></tr>
+                <tr><td>Exports</td><td>Markdown, PDF, DOCX, JSONC, publish-ready executive reports</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="tab-panel" id="tab-plans">
+            <div class="pricing-grid">
+              <article class="card price-card fade-up">
+                <span class="price-badge">Starter</span>
+                <h3>Explore</h3>
+                <p>For teams validating use cases and testing fast-mode workflows with guided support.</p>
+                <div class="price-row"><div class="price">Demo</div><span>custom scope</span></div>
+                <ul class="spec-list">
+                  <li>Interactive walkthrough with sample workflow</li>
+                  <li>Fast mode scenario analysis</li>
+                  <li>Sample report templates</li>
+                </ul>
+                <a class="btn-ghost" href="#contact">Request demo</a>
+              </article>
+
+              <article class="card price-card featured fade-up">
+                <span class="price-badge">Professional</span>
+                <h3>Operate</h3>
+                <p>For strategy, innovation, and product teams running ongoing scenario and market analysis.</p>
+                <div class="price-row"><div class="price">Full</div><span>production workflows</span></div>
+                <ul class="spec-list">
+                  <li>12-agent foresight workflow</li>
+                  <li>Document upload and grounded RAG analysis</li>
+                  <li>Executive reports and workflow history</li>
+                </ul>
+                <a class="btn-primary" href="#contact">Talk to sales</a>
+              </article>
+
+              <article class="card price-card fade-up">
+                <span class="price-badge">Enterprise</span>
+                <h3>Scale</h3>
+                <p>For organizations requiring deployment flexibility, custom integration, and collaboration at scale.</p>
+                <div class="price-row"><div class="price">Custom</div><span>deployment and SLA</span></div>
+                <ul class="spec-list">
+                  <li>Custom model routing and provider setup</li>
+                  <li>Deployment to cloud, Kubernetes, or on-prem</li>
+                  <li>Priority support, observability, and governance</li>
+                </ul>
+                <a class="btn-ghost" href="#contact">Design deployment</a>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="quote-card fade-up">
+            <p class="quote">
+              “Strategic AI compresses weeks of synthesis into a single guided workflow. The difference is not speed alone.
+              It makes assumptions, uncertainty, and tradeoffs visible enough for leadership teams to act on.”
+            </p>
+            <strong>Designed for strategy leaders, innovation teams, consultants, and enterprise operators.</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container trust-grid">
+          <article class="card trust-card fade-up">
+            <h4>Scenario divergence by design</h4>
+            <p>Outputs are tuned to create meaningfully different futures, not cosmetic variations.</p>
+          </article>
+          <article class="card trust-card fade-up">
+            <h4>Audit trail for every insight</h4>
+            <p>Entity IDs connect signals to trends, scenarios, and strategic actions end to end.</p>
+          </article>
+          <article class="card trust-card fade-up">
+            <h4>Extensible architecture</h4>
+            <p>Modules can expand from scenario planning into market research and future workflow templates.</p>
+          </article>
+          <article class="card trust-card fade-up">
+            <h4>Enterprise deployment ready</h4>
+            <p>Supports production infrastructure, observability, and operational resilience from day one.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="cta-panel fade-up">
+            <div>
+              <div class="eyebrow" style="background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.15);color:#fff;"><span class="pulse"></span> Strategic AI Demo</div>
+              <h2>Bring one strategic question. Leave with a scenario map and next moves.</h2>
+              <p>We can walk your team through a sample workflow, configure a grounded analysis using your own material, or scope an enterprise deployment.</p>
+              <div class="hero-actions" style="margin:1.4rem 0 0;">
+                <a class="btn-primary" href="#contact">Request Enterprise Demo</a>
+                <a class="btn-secondary" href="mailto:contact@acuitmesh.com" style="background:rgba(255,255,255,0.12);border-color:rgba(255,255,255,0.12);color:#fff;">Email the team</a>
+              </div>
+            </div>
+            <div class="cta-side">
+              <ul>
+                <li><span>Live workflow walkthrough</span><strong>30 min</strong></li>
+                <li><span>Grounded document analysis demo</span><strong>Included</strong></li>
+                <li><span>Deployment and pricing workshop</span><strong>Optional</strong></li>
+              </ul>
+              <p style="color:rgba(248,250,252,0.76);font-size:0.88rem;">Best fit for strategy teams, product leadership, consulting firms, and public sector planning groups.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="contact">
+        <div class="container">
+          <div class="section-head fade-up">
+            <div class="eyebrow"><span class="pulse"></span> Contact</div>
+            <h2>Talk to the team about your <span>strategic planning workflow</span>.</h2>
+            <p>Share your use case, planning horizon, or deployment requirements. We will reply with the right next step.</p>
+          </div>
+
+          <div class="contact-grid">
+            <article class="contact-card fade-up">
+              <h3 style="font-family:'Sora',sans-serif;margin-bottom:0.9rem;">Strategic AI by Acuitmesh</h3>
+              <p style="color:var(--slate);margin-bottom:1rem;">Enterprise strategic foresight, workflow orchestration, and grounded scenario intelligence.</p>
+
+              <div class="contact-detail">
+                <div class="contact-icon">@</div>
+                <div>
+                  <strong>Email</strong>
+                  <p>contact@acuitmesh.com</p>
+                </div>
+              </div>
+              <div class="contact-detail">
+                <div class="contact-icon">P</div>
+                <div>
+                  <strong>Phone</strong>
+                  <p>061-162-9953</p>
+                </div>
+              </div>
+              <div class="contact-detail">
+                <div class="contact-icon">HQ</div>
+                <div>
+                  <strong>Bangkok office</strong>
+                  <p>253 Asoke Building Floor 24, Sukhumvit 21, Bangkok 10110, Thailand</p>
+                </div>
+              </div>
+              <div style="display:flex;gap:0.8rem;flex-wrap:wrap;margin-top:1rem;">
+                <a class="btn-ghost" href="https://www.acuitmesh.com" target="_blank" rel="noopener">acuitmesh.com</a>
+                <a class="btn-ghost" href="mailto:contact@acuitmesh.com">contact@acuitmesh.com</a>
+              </div>
+            </article>
+
+            <article class="form-card fade-up">
+              <div class="form-success" id="form-success">
+                Your demo request has been recorded. The team will follow up shortly.
+              </div>
+              <form id="contact-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+                <input type="hidden" name="_subject" value="Strategic AI enquiry" />
+                <div class="form-grid">
+                  <div>
+                    <label for="name">Full name</label>
+                    <input id="name" name="name" type="text" placeholder="Jane Smith" required />
+                  </div>
+                  <div>
+                    <label for="email">Work email</label>
+                    <input id="email" name="email" type="email" placeholder="jane@company.com" required />
+                  </div>
+                  <div>
+                    <label for="company">Company</label>
+                    <input id="company" name="company" type="text" placeholder="Acme Strategy Group" />
+                  </div>
+                  <div>
+                    <label for="interest">Primary interest</label>
+                    <select id="interest" name="interest">
+                      <option value="">Select an option</option>
+                      <option>Scenario planning</option>
+                      <option>Market research analysis</option>
+                      <option>Document-grounded RAG</option>
+                      <option>Enterprise deployment</option>
+                      <option>Consulting workflow</option>
+                    </select>
+                  </div>
+                </div>
+                <div style="margin-top:0.9rem;">
+                  <label for="message">What question are you trying to answer?</label>
+                  <textarea id="message" name="message" placeholder="Example: How might AI reshape our competitive landscape over the next five years?" required></textarea>
+                </div>
+                <div style="margin-top:1rem;display:flex;gap:0.8rem;flex-wrap:wrap;">
+                  <button class="btn-primary" type="submit" style="border:0;cursor:pointer;">Request Demo</button>
+                  <a class="btn-secondary" href="mailto:contact@acuitmesh.com">Email Instead</a>
+                </div>
+              </form>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container footer-row">
+        <div>
+          <strong style="font-family:'Sora',sans-serif;color:var(--ink);">Strategic AI</strong>
+          <div>Strategic foresight powered by AI agents.</div>
+        </div>
+        <div class="footer-links">
+          <a href="#features">Features</a>
+          <a href="#pipeline">Pipeline</a>
+          <a href="#pricing">Plans</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const navToggle = document.getElementById('nav-toggle');
+    const navMobile = document.getElementById('nav-mobile');
+
+    if (navToggle && navMobile) {
+      navToggle.addEventListener('click', () => {
+        const open = navMobile.classList.toggle('open');
+        navToggle.classList.toggle('open', open);
+      });
+
+      navMobile.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => {
+          navMobile.classList.remove('open');
+          navToggle.classList.remove('open');
+        });
+      });
+    }
+
+    const pipelineData = {
+      refinement: {
+        stage: 'Agent 01',
+        title: 'Focal Question Refinement',
+        outputType: 'Strategic framing',
+        description: 'Converts a loose prompt into a planning brief with clear actors, horizon, assumptions, and decision boundaries for the entire workflow.',
+        metrics: [
+          ['3', 'decision constraints defined'],
+          ['10s', 'average execution'],
+          ['1', 'clarified focal question']
+        ],
+        bullets: [
+          'Defines scope, time horizon, and decision audience.',
+          'Normalizes ambiguous language into a strategic question.',
+          'Prepares a clean handoff for downstream agents.'
+        ]
+      },
+      scan: {
+        stage: 'Agent 02',
+        title: 'Intelligence Scanning',
+        outputType: 'Signal base',
+        description: 'Gathers signals from web and internal material, looking for trend lines, weak signals, and high-relevance evidence tied to the focal question.',
+        metrics: [
+          ['10+', 'signals captured'],
+          ['5-8', 'major trends surfaced'],
+          ['3-5', 'emerging issues identified']
+        ],
+        bullets: [
+          'Combines public intelligence and uploaded documents.',
+          'Grounds later narratives in evidence instead of generic priors.',
+          'Produces traceable IDs for downstream cross-reference.'
+        ]
+      },
+      forces: {
+        stage: 'Agent 05',
+        title: 'Driving Forces Mapping',
+        outputType: 'HU/HI matrix',
+        description: 'Evaluates forces by uncertainty and impact to isolate the variables most useful for scenario divergence and planning relevance.',
+        metrics: [
+          ['2', 'core matrix axes chosen'],
+          ['8', 'forces compared'],
+          ['100%', 'traceable rationale']
+        ],
+        bullets: [
+          'Maps forces against high-uncertainty and high-impact dimensions.',
+          'Explains why a force becomes a matrix axis or not.',
+          'Sets up scenario construction with visible logic.'
+        ]
+      },
+      scenarios: {
+        stage: 'Agent 07',
+        title: 'Scenario Construction',
+        outputType: '4 future worlds',
+        description: 'Builds four distinct quadrants, each with coherent logic, names, narratives, and implications for operating decisions.',
+        metrics: [
+          ['4', 'divergent scenarios'],
+          ['2000+', 'words per narrative'],
+          ['PDCR', 'ready for validation']
+        ],
+        bullets: [
+          'Creates four plausible 2x2 futures, not four cosmetic variants.',
+          'Links each world to trends, signals, and driving forces.',
+          'Produces narrative timelines to support strategic discussion.'
+        ]
+      },
+      strategy: {
+        stage: 'Agent 09',
+        title: 'Strategic Options',
+        outputType: 'Action portfolio',
+        description: 'Generates robust, contingent, and shaping strategies so teams can decide what to do now, what to hedge, and what to monitor.',
+        metrics: [
+          ['8-12', 'options generated'],
+          ['3', 'strategy categories'],
+          ['1', 'roadmap package']
+        ],
+        bullets: [
+          'Separates no-regret moves from scenario-specific bets.',
+          'Connects recommendations to scenario evidence.',
+          'Supports executive review with action-ready framing.'
+        ]
+      },
+      reporting: {
+        stage: 'Agent 12',
+        title: 'Executive Reporting',
+        outputType: 'Decision package',
+        description: 'Packages the workflow into polished markdown, PDF, DOCX, and JSONC outputs that can feed leadership, workshops, and systems integration.',
+        metrics: [
+          ['4', 'export formats'],
+          ['1', 'executive summary'],
+          ['0-100', 'quality scoring included']
+        ],
+        bullets: [
+          'Builds reports with scenarios, options, validation, and risks.',
+          'Supports publishing, sharing, and downstream integration.',
+          'Preserves evidence lineage and validation context.'
+        ]
+      }
+    };
+
+    const pipelineButtons = document.querySelectorAll('.pipeline-btn');
+    const agentStageTag = document.getElementById('agent-stage-tag');
+    const agentTitle = document.getElementById('agent-title');
+    const agentOutputType = document.getElementById('agent-output-type');
+    const agentDescription = document.getElementById('agent-description');
+    const agentMetricA = document.getElementById('agent-metric-a');
+    const agentMetricALabel = document.getElementById('agent-metric-a-label');
+    const agentMetricB = document.getElementById('agent-metric-b');
+    const agentMetricBLabel = document.getElementById('agent-metric-b-label');
+    const agentMetricC = document.getElementById('agent-metric-c');
+    const agentMetricCLabel = document.getElementById('agent-metric-c-label');
+    const agentBullets = document.getElementById('agent-bullets');
+
+    function renderAgent(agentKey) {
+      const data = pipelineData[agentKey];
+      if (!data) return;
+
+      agentStageTag.textContent = data.stage;
+      agentTitle.textContent = data.title;
+      agentOutputType.textContent = data.outputType;
+      agentDescription.textContent = data.description;
+
+      agentMetricA.textContent = data.metrics[0][0];
+      agentMetricALabel.textContent = data.metrics[0][1];
+      agentMetricB.textContent = data.metrics[1][0];
+      agentMetricBLabel.textContent = data.metrics[1][1];
+      agentMetricC.textContent = data.metrics[2][0];
+      agentMetricCLabel.textContent = data.metrics[2][1];
+
+      agentBullets.innerHTML = data.bullets.map((bullet) => `<li>${bullet}</li>`).join('');
+    }
+
+    pipelineButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        pipelineButtons.forEach((item) => item.classList.remove('active'));
+        button.classList.add('active');
+        renderAgent(button.dataset.agent);
+      });
+    });
+
+    const modeData = {
+      fast: [
+        { time: '0-1 min', label: 'Signal sweep', description: 'Runs a lighter pass across signals, trends, and supporting evidence for a rapid read.' },
+        { time: '1-2 min', label: 'Scenario framing', description: 'Builds core scenario quadrants and quick strategic implications.' },
+        { time: '2-3 min', label: 'Executive snapshot', description: 'Returns a concise output for discussion, triage, and next-step decisions.' }
+      ],
+      thinking: [
+        { time: '0-2 min', label: 'Deep environmental analysis', description: 'Expands STEEPM scanning, signal validation, and uncertainty mapping.' },
+        { time: '2-4 min', label: 'Narrative construction', description: 'Generates richer scenarios, longer narratives, and sharper divergence.' },
+        { time: '4-6 min', label: 'Strategic portfolio + QA', description: 'Produces robust options, bias checks, PDCR validation, and report packaging.' }
+      ]
+    };
+
+    const modeButtons = document.querySelectorAll('.mode-btn');
+    const modeTimeline = document.getElementById('mode-timeline');
+
+    function renderTimeline(modeKey) {
+      const items = modeData[modeKey] || [];
+      modeTimeline.innerHTML = items.map((item) => `
+        <article class="timeline-card">
+          <div class="timeline-time">${item.time.replace('-', '<br />')}</div>
+          <div>
+            <small class="tag">${modeKey === 'fast' ? 'Fast mode' : 'Thinking mode'}</small>
+            <h3 style="margin:0.6rem 0 0.35rem;">${item.label}</h3>
+            <p>${item.description}</p>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    modeButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        modeButtons.forEach((item) => item.classList.remove('active'));
+        button.classList.add('active');
+        renderTimeline(button.dataset.mode);
+      });
+    });
+
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabPanels = document.querySelectorAll('.tab-panel');
+
+    tabButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const selected = button.dataset.tab;
+        tabButtons.forEach((item) => item.classList.remove('active'));
+        tabPanels.forEach((panel) => panel.classList.remove('active'));
+        button.classList.add('active');
+        document.getElementById(`tab-${selected}`).classList.add('active');
+      });
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.14, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.fade-up').forEach((element) => observer.observe(element));
+
+    renderAgent('refinement');
+    renderTimeline('fast');
+
+    const form = document.getElementById('contact-form');
+    const success = document.getElementById('form-success');
+
+    if (form && success) {
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const action = form.getAttribute('action') || '';
+        const data = new FormData(form);
+
+        if (action.includes('YOUR_FORMSPREE_ID')) {
+          form.style.display = 'none';
+          success.classList.add('visible');
+          return;
+        }
+
+        try {
+          const response = await fetch(action, {
+            method: 'POST',
+            body: data,
+            headers: { Accept: 'application/json' }
+          });
+
+          if (response.ok) {
+            form.style.display = 'none';
+            success.classList.add('visible');
+          } else {
+            alert('Submission failed. Please email contact@acuitmesh.com directly.');
+          }
+        } catch (error) {
+          alert('Network error. Please email contact@acuitmesh.com directly.');
+        }
+      });
+    }
+  </script>
+</body>
+</html>

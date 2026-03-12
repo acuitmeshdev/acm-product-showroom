@@ -1,0 +1,100 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const {
+  title = 'Product Showcase',
+  description = 'Discover our products',
+  ogImage = '/og-default.png',
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/favicon.svg" />
+    <link rel="canonical" href={canonicalURL} />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:type" content="website" />
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+            <a href="/" class="flex items-center hover:opacity-85 transition-opacity">
+              <img src="/logo.png" alt="Acuitmesh" class="h-8 w-auto" />
+            </a>
+          <div class="flex items-center gap-6">
+            <a href="/" class="text-slate-600 hover:text-slate-900 text-sm font-medium transition-colors">Products</a>
+            <a href="https://www.acuitmesh.com" target="_blank" rel="noopener" class="text-slate-600 hover:text-slate-900 text-sm font-medium transition-colors">Website</a>
+            <a
+              href="https://www.acuitmesh.com/contact-10"
+              target="_blank"
+              rel="noopener"
+              class="bg-orange-500 hover:bg-orange-400 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors"
+            >
+              Contact Us
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page content -->
+    <main class="pt-16">
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-50 border-t border-slate-200 mt-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+          <div class="flex items-center gap-2">
+            <img src="/logo.png" alt="Acuitmesh" class="h-12 w-auto" />
+          </div>
+          <p class="text-slate-500 text-sm text-center">
+            © {new Date().getFullYear()} ACUITMESH COMPANY LIMITED. All rights reserved.
+          </p>
+          <div class="flex items-center gap-4 text-slate-600 text-sm">
+            <a href="https://www.acuitmesh.com" target="_blank" rel="noopener" class="hover:text-slate-900 transition-colors">acuitmesh.com</a>
+            <a href="https://www.acuitmesh.com/contact-10" target="_blank" rel="noopener" class="hover:text-slate-900 transition-colors">Contact</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- AOS init -->
+    <script>
+      import AOS from 'aos';
+      AOS.init({ once: true, duration: 600, easing: 'ease-out-cubic', offset: 60 });
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  @import '../styles/global.css';
+</style>

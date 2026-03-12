@@ -1,0 +1,38 @@
+@import "tailwindcss";
+@import "aos/dist/aos.css";
+
+/* ---------- Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  @apply bg-slate-50 text-slate-900 antialiased;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* ---------- Smooth scroll ---------- */
+html { scroll-behavior: smooth; }
+
+/* ---------- Custom scrollbar ---------- */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { @apply bg-slate-200; }
+::-webkit-scrollbar-thumb { @apply bg-slate-400 rounded-full; }
+
+/* ---------- Embla Carousel ---------- */
+.embla { overflow: hidden; }
+.embla__container { display: flex; }
+.embla__slide { flex: 0 0 100%; min-width: 0; }
+
+/* ---------- PDF viewer ---------- */
+.pdf-embed {
+  width: 100%;
+  height: 90vh;
+  border: none;
+  border-radius: 0.75rem;
+}
+
+/* ---------- HTML brochure iframe ---------- */
+.html-embed {
+  width: 100%;
+  height: 100vh;
+  border: none;
+}
